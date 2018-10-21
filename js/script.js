@@ -11,18 +11,14 @@ const pageCount = getPages(list);
 const listValue = parseInt(list.length) - 1;
 
 
-
-// Create a function to hide all of the items in the list excpet for the ten you want to show
-// Tip: Keep in mind that with a list of 54 studetns, the last page will only display four
-
 //Number of links at the bottom based on how many students are in the list
 function getPages(list) {
   const pageCount = Math.ceil(list.length / 10);
   return pageCount;
 }
 
+//Function created to pull up 10 appropriate students on each page and hide all the others
 function tenStudents(value) {
-  //for (let i = 1; i <= pageCount; i++) {
     let lowerNumber = ((parseInt(value) - 1) * 10);
     const comparisonNumber = (parseInt(value) * 10);
   for (let h = 0; h <= listValue; h++) {
@@ -39,10 +35,10 @@ function tenStudents(value) {
         lowerNumber = lowerNumber + 1;
       }
     }
-  //}
 }
 
 // Create and append the pagination links - Creating a function that can do this is a good approach
+// Create Element Function
 function createElement(elementType, property, value){
   const element = document.createElement(elementType);
   element[property] = value
@@ -58,7 +54,7 @@ mainDiv.insertBefore(ul, paginationDiv);
 const paginationUL = document.createElement('ul');
 paginationDiv.appendChild(paginationUL);
 
-//creating list items and links
+//creating pagination list items and links
 function createPaginationLinks() {
   for(let i = 1; i <= pageCount; i++) {
   const paginationLI = createElement('li', 'className', 'pagnation li');
@@ -71,26 +67,30 @@ function createPaginationLinks() {
 }
 };
 createPaginationLinks();
-
 const clickLink = document.querySelectorAll('a');
 
+//Function that creates opening page default
+//1st link set to active & first ten students only appear
 function addDefaults() {
   clickLink[0].className = 'active';
-  tenStudents(1); 
+  tenStudents(1);
 }
 addDefaults();
 
+//Function to remove active class from where it was
 function removeClass() {
   const remove = document.querySelector('.active');
   remove.className = '';
   return remove;
 }
 
+//Click Links - removes previous active class and adds it to target
+//Also collects a value to be used in the function used to call 10 needed Students
+//Calls 10 students to appropriate page based on target link
 paginationUL.addEventListener ('click', (e) => {
   removeClass();
   e.target.className = 'active';
   const paginationvalue = e.target.textContent;
-  console.log(paginationvalue);
   parseInt(paginationvalue);
   tenStudents(paginationvalue);
 })

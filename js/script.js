@@ -8,6 +8,8 @@ const mainDiv = document.querySelector('.page');
 const ul = document.querySelector('.student-list');
 const list = ul.children;
 const pageCount = getPages(list);
+const listValue = parseInt(list.length) - 1;
+
 
 
 // Create a function to hide all of the items in the list excpet for the ten you want to show
@@ -19,24 +21,27 @@ function getPages(list) {
   return pageCount;
 }
 
-function tenStudents() {
-  for (let i = 1; i <= pageCount; i++) {
-    let lowerNumber = ((i - 1) * 10);
-    const upperNumber = (i * 10 - 1);
-    const comparisonNumber = (i * 10);
-  for (let h = 0; h < list.length; h++) {
-    const listItem = list[h];
-  if(lowerNumber < comparisonNumber
-        && comparisonNumber > upperNumber) {
+function tenStudents(value) {
+  //for (let i = 1; i <= pageCount; i++) {
+    let lowerNumber = ((parseInt(value) - 1) * 10);
+    const comparisonNumber = (parseInt(value) * 10);
+  for (let h = 0; h <= listValue; h++) {
+    if ( h < lowerNumber ) {
+      const listItem = list[h];
+      listItem.style.display = 'none'
+    } else if(lowerNumber < comparisonNumber) {
+        const listItem = list[lowerNumber];
         listItem.style.display = '';
         lowerNumber = lowerNumber + 1;
-  }  else {
+    }  else {
+        const listItem = list[lowerNumber];
         listItem.style.display = 'none';
+        lowerNumber = lowerNumber + 1;
       }
     }
-  }
+  //}
 }
-tenStudents();
+
 // Create and append the pagination links - Creating a function that can do this is a good approach
 function createElement(elementType, property, value){
   const element = document.createElement(elementType);
@@ -53,7 +58,7 @@ mainDiv.insertBefore(ul, paginationDiv);
 const paginationUL = document.createElement('ul');
 paginationDiv.appendChild(paginationUL);
 
-
+//creating list items and links
 function createPaginationLinks() {
   for(let i = 1; i <= pageCount; i++) {
   const paginationLI = createElement('li', 'className', 'pagnation li');
@@ -63,7 +68,6 @@ function createPaginationLinks() {
   paginationLink.textContent = i;
   paginationLink.setAttribute('href', '#');
   paginationLI.appendChild(paginationLink);
-
 }
 };
 
@@ -71,13 +75,28 @@ createPaginationLinks();
 
 const clickLink = document.querySelectorAll('a');
 
-for (let i = 0; i< clickLink.length; i++) {
-clickLink[i].addEventListener('click', () => {
-console.log(clickLink[i].textContent);
+paginationUL.addEventListener ('click', (e) => {
+  e.target.className = 'active';
+  const paginationvalue = e.target.textContent;
+  console.log(paginationvalue);
+  parseInt(paginationvalue);
+  tenStudents(paginationvalue);
 })
+
+/*
+function clickEvent () {
+for (let i = 1; i < clickLink.length; i++) {
+clickLink[i].addEventListener('click', (e) => {
+clickLink[i].target.className = 'active';
+const paginationvalue = clickLink[i].textContent;
+parseInt(paginationvalue);
+tenStudents(paginationvalue);
+})
+}
 };
 
 
+clickEvent*/
 
 // Add functionality to the pagination buttons so that they show and hide the correct items
 /*.addEventListener('click', (e) => {

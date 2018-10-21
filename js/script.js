@@ -70,54 +70,30 @@ function createPaginationLinks() {
   paginationLI.appendChild(paginationLink);
 }
 };
-
 createPaginationLinks();
 
 const clickLink = document.querySelectorAll('a');
 
+function addDefaults() {
+  clickLink[0].className = 'active';
+  tenStudents(1); 
+}
+addDefaults();
+
+function removeClass() {
+  const remove = document.querySelector('.active');
+  remove.className = '';
+  return remove;
+}
+
 paginationUL.addEventListener ('click', (e) => {
+  removeClass();
   e.target.className = 'active';
   const paginationvalue = e.target.textContent;
   console.log(paginationvalue);
   parseInt(paginationvalue);
   tenStudents(paginationvalue);
 })
-
-/*
-function clickEvent () {
-for (let i = 1; i < clickLink.length; i++) {
-clickLink[i].addEventListener('click', (e) => {
-clickLink[i].target.className = 'active';
-const paginationvalue = clickLink[i].textContent;
-parseInt(paginationvalue);
-tenStudents(paginationvalue);
-})
-}
-};
-
-
-clickEvent*/
-
-// Add functionality to the pagination buttons so that they show and hide the correct items
-/*.addEventListener('click', (e) => {
-  //for (let i = 0, i < list.length) {
-    //const link = document.querySelectorAll('.pageNumber')[i];
-    const link = paginationListItems.children;
-    return console.log(link.textContent);
-  }
-);*/
-  /*for (let i = 0; i <= link.length; i++) {
-  const number = link[i].textContent;
-  parseInt('number', 10);
-  const lowerNumber = ((number - 1) * 10);
-  const upperNumber = (number * 10 - 1);
-  const listItem = list[i];
-  if ( (i * 10) === lowerNumber) {
-    listItem.style.display = '';
-  } else {
-    listItem.style.display = 'none';
-  }
-}*/
 
 
 // Tip: If you created a function above to show/hide list items, it could be helpful here

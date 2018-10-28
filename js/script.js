@@ -134,6 +134,9 @@ function createSearchList(searchList) {
 
 //Function created to modify pagnation based on search results
 function changePagination(searchList){
+//Assistance via
+//https://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
+//removes previous pagnation
   while(paginationUL.firstChild) {
     paginationUL.removeChild(paginationUL.firstChild);
   }
@@ -169,7 +172,7 @@ button.addEventListener('click', (e) => {
   tenStudents(first, searchList);
 });
 
-//actives when a pagniation link is clicked. 
+//actives when a pagniation link is clicked.
 paginationUL.addEventListener ('click', (e) => {
   e.preventDefault();
   removeClass();
@@ -183,13 +186,3 @@ paginationUL.addEventListener ('click', (e) => {
    else {
     callCorrectStudents(paginationvalue, list)}
 })
-
-//Removes all previous pagination
-//https://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
-
-//updated pagination & no result
-
-
-   //return searchList;
-//getPages(searchList);
-//tenStudents(pageCount, searchList);
